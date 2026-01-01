@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bakery - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container login-wrapper" data-testid="login-container">
+        <h2 data-testid="login-title">🍰 Member Login</h2>
+        
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" data-testid="username-input" placeholder="Enter username" required>
+            <span id="username-error" class="field-error" data-testid="username-error"></span>
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" data-testid="password-input" placeholder="Enter password" required>
+            <span id="password-error" class="field-error" data-testid="password-error"></span>
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="remember-me" data-testid="remember-checkbox">
+            <label for="remember-me" class="checkbox-label">Remember me</label>
+        </div>
+        
+        <button id="login-btn" data-testid="login-button" onclick="performLogin()">Sign In</button>
+        
+        <div id="error-msg" class="error-banner hidden" data-testid="login-error"></div>
+        <div id="success-msg" class="success-banner hidden" data-testid="login-success"></div>
+        
+        <div class="link-section">
+            <a href="register.html" class="link-text" data-testid="register-link">No account? Register here</a>
+            <a href="#" class="link-text" data-testid="forgot-password-link" onclick="showForgotPassword()">Forgot password?</a>
+        </div>
+    </div>
+    
+    <!-- Forgot Password Modal -->
+    <div id="forgot-modal" class="modal hidden" data-testid="forgot-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeForgotModal()">&times;</span>
+            <h3>Reset Password</h3>
+            <label for="reset-email">Enter your email</label>
+            <input type="email" id="reset-email" data-testid="reset-email-input" placeholder="your@email.com">
+            <button id="reset-btn" data-testid="reset-button" onclick="sendResetLink()">Send Reset Link</button>
+            <p id="reset-msg" data-testid="reset-message"></p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

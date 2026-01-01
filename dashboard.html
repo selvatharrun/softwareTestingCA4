@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bakery Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkSession()">
+
+    <!-- Header Section -->
+    <header class="dashboard-header" data-testid="dashboard-header">
+        <div class="header-left">
+            <h1 class="brand" data-testid="brand-logo">🍰 Sweet Delights Bakery</h1>
+        </div>
+        <div class="header-right">
+            <div class="search-box">
+                <input type="text" id="search-input" data-testid="search-input" placeholder="Search menu..." onkeyup="searchMenu()">
+                <button id="search-clear" data-testid="search-clear" onclick="clearSearch()">✕</button>
+            </div>
+            <div class="profile-section">
+                <div class="profile-icon" id="profile-btn" data-testid="profile-button" onclick="toggleMenu()">👤</div>
+                <div id="profile-menu" class="dropdown-menu hidden" data-testid="profile-menu">
+                    <p id="display-name" class="menu-username" data-testid="display-name">User</p>
+                    <button class="menu-item" data-testid="settings-button" onclick="openSettings()">⚙️ Settings</button>
+                    <button class="menu-item" data-testid="order-history-button" onclick="showOrderHistory()">📋 Order History</button>
+                    <hr class="menu-divider">
+                    <button class="menu-item logout-red" data-testid="logout-button" onclick="performLogout()">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Notification Banner -->
+    <div id="notification" class="notification hidden" data-testid="notification">
+        <span id="notification-text"></span>
+        <button class="notification-close" onclick="hideNotification()">✕</button>
+    </div>
+
+    <div class="main-layout" data-testid="main-layout">
+        <!-- Menu Section -->
+        <div class="container menu-container" data-testid="menu-section">
+            <div class="section-header">
+                <h2>🍩 Our Menu</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-testid="filter-all" onclick="filterMenu('all')">All</button>
+                    <button class="filter-btn" data-testid="filter-donuts" onclick="filterMenu('donut')">Donuts</button>
+                    <button class="filter-btn" data-testid="filter-cakes" onclick="filterMenu('cake')">Cakes</button>
+                    <button class="filter-btn" data-testid="filter-drinks" onclick="filterMenu('drink')">Drinks</button>
+                </div>
+            </div>
+            
+            <table id="menu-table" data-testid="menu-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="menu-body" data-testid="menu-body">
+                    <tr data-category="donut" data-testid="menu-item-1">
+                        <td>Chocolate Donut</td>
+                        <td><span class="category-badge donut">Donut</span></td>
+                        <td>$2.50</td>
+                        <td><button class="quick-add" data-testid="quick-add-1" onclick="quickAdd('Chocolate Donut', 2.50)">+ Add</button></td>
+                    </tr>
+                    <tr data-category="cake" data-testid="menu-item-2">
+                        <td>Strawberry Tart</td>
+                        <td><span class="category-badge cake">Cake</span></td>
+                        <td>$4.00</td>
+                        <td><button class="quick-add" data-testid="quick-add-2" onclick="quickAdd('Strawberry Tart', 4.00)">+ Add</button></td>
+                    </tr>
+                    <tr data-category="donut" data-testid="menu-item-3">
+                        <td>Vanilla Glazed</td>
+                        <td><span class="category-badge donut">Donut</span></td>
+                        <td>$1.50</td>
+                        <td><button class="quick-add" data-testid="quick-add-3" onclick="quickAdd('Vanilla Glazed', 1.50)">+ Add</button></td>
+                    </tr>
+                    <tr data-category="cake" data-testid="menu-item-4">
+                        <td>Red Velvet Slice</td>
+                        <td><span class="category-badge cake">Cake</span></td>
+                        <td>$5.50</td>
+                        <td><button class="quick-add" data-testid="quick-add-4" onclick="quickAdd('Red Velvet Slice', 5.50)">+ Add</button></td>
+                    </tr>
+                    <tr data-category="drink" data-testid="menu-item-5">
+                        <td>Hot Coffee</td>
+                        <td><span class="category-badge drink">Drink</span></td>
+                        <td>$3.00</td>
+                        <td><button class="quick-add" data-testid="quick-add-5" onclick="quickAdd('Hot Coffee', 3.00)">+ Add</button></td>
+                    </tr>
+                    <tr data-category="drink" data-testid="menu-item-6">
+                        <td>Iced Latte</td>
+                        <td><span class="category-badge drink">Drink</span></td>
+                        <td>$4.50</td>
+                        <td><button class="quick-add" data-testid="quick-add-6" onclick="quickAdd('Iced Latte', 4.50)">+ Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <p id="no-results" class="no-results hidden" data-testid="no-results">No items found matching your search.</p>
+
+            <div class="custom-order-section">
+                <h3>Custom Order</h3>
+                <div class="custom-order-form">
+                    <select id="combo-item" data-testid="item-select">
+                        <option value="2.50" data-name="Chocolate Donut">Chocolate Donut - $2.50</option>
+                        <option value="4.00" data-name="Strawberry Tart">Strawberry Tart - $4.00</option>
+                        <option value="1.50" data-name="Vanilla Glazed">Vanilla Glazed - $1.50</option>
+                        <option value="5.50" data-name="Red Velvet Slice">Red Velvet Slice - $5.50</option>
+                        <option value="3.00" data-name="Hot Coffee">Hot Coffee - $3.00</option>
+                        <option value="4.50" data-name="Iced Latte">Iced Latte - $4.50</option>
+                    </select>
+                    <div class="quantity-control">
+                        <button class="qty-btn" data-testid="qty-decrease" onclick="changeQty(-1)">−</button>
+                        <input type="number" id="quantity" data-testid="quantity-input" min="1" max="99" value="1">
+                        <button class="qty-btn" data-testid="qty-increase" onclick="changeQty(1)">+</button>
+                    </div>
+                    <button id="add-btn" data-testid="add-to-cart-button" onclick="addToCart()">➕ Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Section -->
+        <div class="container cart-container" data-testid="cart-section">
+            <div class="section-header">
+                <h2>🛒 Your Cart</h2>
+                <span id="cart-count" class="cart-count" data-testid="cart-count">0 items</span>
+            </div>
+            
+            <div id="empty-cart" class="empty-cart" data-testid="empty-cart">
+                <p>Your cart is empty</p>
+                <span>Add some delicious treats!</span>
+            </div>
+            
+            <table id="cart-table" class="hidden" data-testid="cart-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Cost</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-body" data-testid="cart-body"></tbody>
+            </table>
+            
+            <div id="cart-summary" class="cart-summary hidden" data-testid="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span>$<span id="subtotal">0.00</span></span>
+                </div>
+                <div class="summary-row">
+                    <span>Tax (10%):</span>
+                    <span>$<span id="tax-amount" data-testid="tax-amount">0.00</span></span>
+                </div>
+                <div class="summary-row total-row">
+                    <span>Total:</span>
+                    <span>$<span id="total-price" data-testid="total-price">0.00</span></span>
+                </div>
+                
+                <div class="promo-section">
+                    <input type="text" id="promo-code" data-testid="promo-input" placeholder="Enter promo code">
+                    <button id="apply-promo" data-testid="apply-promo-button" onclick="applyPromo()">Apply</button>
+                </div>
+                <div id="promo-message" class="promo-message hidden" data-testid="promo-message"></div>
+                
+                <div class="checkout-buttons">
+                    <button id="clear-cart-btn" data-testid="clear-cart-button" class="secondary-btn" onclick="clearCart()">🗑️ Clear Cart</button>
+                    <button id="checkout-btn" data-testid="checkout-button" class="primary-btn" onclick="checkout()">✅ Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order History Modal -->
+    <div id="order-history-modal" class="modal hidden" data-testid="order-history-modal">
+        <div class="modal-content wide-modal">
+            <span class="close-btn" onclick="closeOrderHistory()">&times;</span>
+            <h3>📋 Order History</h3>
+            <div id="order-history-list" data-testid="order-history-list">
+                <p class="no-orders" data-testid="no-orders">No previous orders found.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden" data-testid="settings-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeSettings()">&times;</span>
+            <h3>⚙️ Settings</h3>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="display-name-input">Display Name</label>
+                    <input type="text" id="display-name-input" data-testid="display-name-input">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="email-notifications" data-testid="email-notifications-checkbox"> 
+                        Email notifications
+                    </label>
+                </div>
+                <button id="save-settings" data-testid="save-settings-button" onclick="saveSettings()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Confirmation Modal -->
+    <div id="checkout-modal" class="modal hidden" data-testid="checkout-modal">
+        <div class="modal-content">
+            <h3>🎉 Order Confirmed!</h3>
+            <p id="checkout-message" data-testid="checkout-message"></p>
+            <p id="order-number" data-testid="order-number"></p>
+            <button data-testid="close-checkout-modal" onclick="closeCheckoutModal()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

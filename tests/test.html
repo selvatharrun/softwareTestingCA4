@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Treats - Login</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        
+        /* Container Logic */
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 400px; }
+        .dashboard-container { width: 800px; } /* Wider for the main page */
+        
+        /* Utility Classes */
+        .hidden { display: none !important; }
+        .error { color: red; font-size: 0.9em; margin-top: 5px; }
+        
+        /* Elements */
+        h2 { color: #d35400; text-align: center; margin-top: 0; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; margin-top: 20px; background-color: #e67e22; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #d35400; }
+        
+        /* Dashboard Specifics */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #fce4ec; }
+        .logout-link { color: #555; text-decoration: underline; cursor: pointer; float: right; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <div id="login-page" class="container">
+        <h2>🍰 Sweet Treats Login</h2>
+        
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter 'student'">
+        
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter 'Password123'">
+        
+        <button id="login-btn" onclick="attemptLogin()">Sign In</button>
+        <p id="error-msg" class="error"></p>
+        
+        <p style="text-align: center; font-size: 0.8em; color: #777;">
+            (Hint: User: <b>student</b>, Pass: <b>Password123</b>)
+        </p>
+    </div>
+
+    <div id="dashboard-page" class="container dashboard-container hidden">
+        <span id="logout" class="logout-link" onclick="logout()">Logout</span>
+        <h2 id="welcome-header">Welcome to the Bakery!</h2>
+        <p>Select your items below to calculate the bill.</p>
+
+        <h3>Menu</h3>
+        <table id="menu-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Chocolate Donut</td><td>Donuts</td><td>$2.50</td></tr>
+                <tr><td>Strawberry Tart</td><td>Tarts</td><td>$4.00</td></tr>
+                <tr><td>Vanilla Cone</td><td>Ice Cream</td><td>$1.50</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Order Form</h3>
+        <label for="combo-item">Select Item:</label>
+        <select id="combo-item">
+            <option value="donut">Chocolate Donut</option>
+            <option value="tart">Strawberry Tart</option>
+            <option value="cone">Vanilla Cone</option>
+        </select>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" min="1" max="50">
+
+        <button id="order-btn" onclick="alert('Order success!')">Place Order</button>
+    </div>
+
+    <script>
+        function attemptLogin() {
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+
+            // Simple Validation Logic
+            if (user === "student" && pass === "Password123") {
+                // Hide Login, Show Dashboard
+                document.getElementById('login-page').classList.add('hidden');
+                document.getElementById('dashboard-page').classList.remove('hidden');
+            } else {
+                errorMsg.innerText = "Invalid Username or Password";
+            }
+        }
+
+        function logout() {
+            // Hide Dashboard, Show Login
+            document.getElementById('dashboard-page').classList.add('hidden');
+            document.getElementById('login-page').classList.remove('hidden');
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
+            document.getElementById('error-msg').innerText = "";
+        }
+    </script>
+</body>
+</html>

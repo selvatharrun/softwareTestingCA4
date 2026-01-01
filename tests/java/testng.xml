@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Bakery E2E Test Suite" verbose="1">
+    
+    <test name="Registration Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testRegisterPageLoads"/>
+                    <include name="testRegisterWithEmptyFields"/>
+                    <include name="testRegisterWithShortUsername"/>
+                    <include name="testRegisterWithInvalidEmail"/>
+                    <include name="testRegisterWithMismatchedPasswords"/>
+                    <include name="testRegisterWithoutTerms"/>
+                    <include name="testSuccessfulRegistration"/>
+                    <include name="testNavigateToLoginFromRegister"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Login Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testLoginPageLoads"/>
+                    <include name="testLoginWithEmptyFields"/>
+                    <include name="testLoginWithInvalidCredentials"/>
+                    <include name="testSuccessfulLogin"/>
+                    <include name="testForgotPasswordModal"/>
+                    <include name="testForgotPasswordWithValidEmail"/>
+                    <include name="testNavigateToRegisterFromLogin"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Dashboard Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testDashboardRequiresLogin"/>
+                    <include name="testDashboardLoadsAfterLogin"/>
+                    <include name="testDisplayNameShown"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Menu and Search Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testMenuItemsDisplayed"/>
+                    <include name="testSearchFunctionality"/>
+                    <include name="testSearchNoResults"/>
+                    <include name="testClearSearch"/>
+                    <include name="testFilterByCategory"/>
+                    <include name="testFilterAll"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Cart Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testEmptyCartDisplayed"/>
+                    <include name="testQuickAddToCart"/>
+                    <include name="testAddToCartWithQuantity"/>
+                    <include name="testQuantityButtons"/>
+                    <include name="testRemoveFromCart"/>
+                    <include name="testClearCart"/>
+                    <include name="testCartTotalCalculation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Promo Code Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testValidPromoCode"/>
+                    <include name="testInvalidPromoCode"/>
+                    <include name="testPromoCodeAppliedOnce"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Checkout Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testCheckoutWithEmptyCart"/>
+                    <include name="testSuccessfulCheckout"/>
+                    <include name="testCartClearedAfterCheckout"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Order History Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testOrderHistoryEmpty"/>
+                    <include name="testOrderHistoryAfterCheckout"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Settings Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testOpenSettingsModal"/>
+                    <include name="testSaveSettings"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Logout Tests">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testLogout"/>
+                    <include name="testCannotAccessDashboardAfterLogout"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Complete E2E Flow">
+        <classes>
+            <class name="BakeryE2ETest">
+                <methods>
+                    <include name="testCompleteUserJourney"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
