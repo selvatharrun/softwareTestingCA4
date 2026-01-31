@@ -1,0 +1,1 @@
+its an end to end testing simulation using selenium on a html bakery website with simple html java and css, this is to simply understand e2e testing, there are around 44 different test scenarios, each testing a different user story.
